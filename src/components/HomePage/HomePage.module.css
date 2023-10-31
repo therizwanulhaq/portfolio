@@ -1,0 +1,37 @@
+:root {
+  --lineColor: grey;
+}
+
+.homePage {
+  position: relative;
+  background: rgb(43, 6, 6);
+  color: whitesmoke;
+  height: 100vh;
+}
+
+.bg {
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.line1 {
+  background: var(--lineColor);
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 8rem;
+  height: 100vh;
+  width: 1px;
+}
+
+.line2 {
+  background: var(--lineColor);
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 8rem;
+  height: 100vh;
+  width: 1px;
+}

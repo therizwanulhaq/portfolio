@@ -1,0 +1,43 @@
+header {
+  padding-top: 2rem;
+  /* background: black; */
+  z-index: 1;
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+header ul {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  position: absolute;
+  top: 1.5rem;
+  left: 3rem;
+  /* font-family: "Dancing Script", cursive; */
+  font-family: "Audiowide", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.headerLinks {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.headerLinks li {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+#menuIcon {
+  position: absolute;
+  top: 2.4rem;
+  right: 3rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}

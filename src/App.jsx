@@ -1,6 +1,5 @@
-import HomePage from "./components/HomePage";
+import HomePage from "./components/HomePage/HomePage";
 import "./App.css";
-import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -8,7 +7,6 @@ function App() {
       <div className="content">
         <HomePage />
       </div>
-      <Footer />
     </div>
   );
 }
