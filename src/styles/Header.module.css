@@ -1,0 +1,8 @@
+header {
+  background: aqua;
+}
+
+header ul {
+  display: flex;
+  justify-content: space-between;
+}
