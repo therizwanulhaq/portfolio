@@ -2,6 +2,8 @@ import { useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
+import styles from "./Header/Header.module.css";
+
 function Design() {
   const particlesInit = useCallback(async (engine) => {
     console.log(engine);
@@ -16,7 +18,7 @@ function Design() {
     await console.log(container);
   }, []);
   return (
-    <div>
+    <div className={styles.particles}>
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -85,7 +87,7 @@ function Design() {
               type: "circle",
             },
             size: {
-              value: { min: 2, max: 6 },
+              value: { min: 2, max: 3 },
             },
           },
           detectRetina: true,
