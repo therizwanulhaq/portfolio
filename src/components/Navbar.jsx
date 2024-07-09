@@ -1,43 +1,51 @@
 import styled from "@emotion/styled";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const StyledNavbar = styled.nav`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: space-between;
-  gap: 2.5rem;
+  gap: 1rem;
 `;
 
 const StyledLink = styled.li`
+  color: ${({ theme }) => theme.colors.secondary};
   font-size: 0.9rem;
-  font-weight: 600;
-`;
-
-const StyledButton = styled.button`
-  margin-left: 2rem;
-  padding: 0.5rem 1.5rem;
-  border: none;
-  border-radius: 1rem;
-  font-weight: 500;
-  background: #8c8c73;
-  color: #ffffff;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  outline: 1px solid #ffffff;
-
-  :hover {
-    outline: 1px solid aquamarine;
-    transition: outline 500ms ease;
-  }
+  font-weight: 700;
 `;
 
 const Navbar = () => {
-  const navElements = ["About Me", "Services", "Projects", "Resume"];
+  const navContainer = useRef();
+
+  useGSAP(
+    () => {
+      gsap.from(".navbar", {
+        opacity: 0,
+        y: -30,
+        duration: 1,
+        stagger: 0.2,
+        ease: "sine",
+        delay: 1,
+      });
+    },
+    { scope: navContainer }
+  );
+
+  const navElements = ["About Me", "Services", "Projects", "Resume", "Contact"];
 
   return (
-    <StyledNavbar>
+    <StyledNavbar ref={navContainer}>
       {navElements.map((nav, index) => (
-        <StyledLink key={index}>{nav}</StyledLink>
+        <StyledLink key={index} className="navbar">
+          {nav}
+        </StyledLink>
       ))}
-      <StyledButton>Contact Me</StyledButton>
     </StyledNavbar>
   );
 };

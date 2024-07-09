@@ -4,32 +4,27 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
-import LogoBlack from "../assets/RUH_LOGO_BLACK.svg";
-
 const StyledHeader = styled.header`
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   padding: 1.5rem 3rem;
-  color: ${({ theme }) => theme.colors.primary};
+  font-family: ${({ theme }) => theme.fonts.spaceGrotesk};
   background: ${({ theme }) => theme.colors.background};
-  font-family: ${({ theme }) => theme.fonts.heading};
-  transition: background 700ms ease;
+
+  @media (max-width: 576px) {
+    padding: 1.5rem;
+  }
 `;
 
-const Logo = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+const Logo = styled.h1`
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 1.5rem;
+  font-weight: 700;
 `;
 
 const Header = () => {
-  const container = useRef();
+  const headerContainer = useRef();
 
   useGSAP(
     () => {
@@ -37,18 +32,23 @@ const Header = () => {
         opacity: 0,
         y: -30,
         duration: 1,
-        delay: 0.5,
+        delay: 1,
+      });
+      gsap.from(".dot", {
+        repeat: -1,
+        duration: 2,
+        color: "white",
       });
     },
-    { scope: container }
+    { scope: headerContainer }
   );
 
   return (
-    <StyledHeader ref={container}>
-      <Logo src={LogoBlack} className="animate" />
-      <StyledDiv className="animate">
-        <Navbar />
-      </StyledDiv>
+    <StyledHeader ref={headerContainer}>
+      <Logo className="animate">
+        ruh<span className="dot">.</span>
+      </Logo>
+      <Navbar />
     </StyledHeader>
   );
 };
