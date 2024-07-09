@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 const StyledSection = styled.section`
+  position: relative;
+  z-index: 5;
   margin-top: 5rem;
   display: flex;
   flex-direction: column;
@@ -48,6 +50,7 @@ const Icon = styled.span`
   font-weight: 800;
 `;
 const Details = styled.p`
+  font-family: ${({ theme }) => theme.fonts.spaceGrotesk};
   color: #524d47;
   font-weight: 500;
 `;
