@@ -32,12 +32,40 @@ const Divider = styled.div`
   margin-bottom: 1rem;
 `;
 
-const Content = styled.p`
+const Content = styled.li`
+cursor: pointer;
+width: fit-content;
   color: ${({ theme }) => theme.colors.secondary};
   text-transform: capitalize;
   font-size: 1rem;
   font-weight: 550;
   margin-bottom: 0.5rem;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #c07300;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 2px;
+    right: 0;
+    background: #c0730092;
+    transition: width 0.3s ease;
+    -webkit-transition: width 0.3s ease;
+  }
+
+  &:hover:after {
+    width: 100%;
+    left: 0;
+    background: #c0730097;
+  }
 `;
 
 const Footer = () => {

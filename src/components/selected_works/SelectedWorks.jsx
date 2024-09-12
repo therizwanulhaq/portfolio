@@ -1,63 +1,144 @@
 import styled from "@emotion/styled";
-import littleLemonImg from "../../assets/images/little_lemon.png";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+
+import Bg from "../../assets/grainy.svg";
 import Projects from "./Projects";
 
 const StyledSection = styled.section`
+  overflow: hidden;
+  border-radius: 2rem;
   z-index: 3;
   position: relative;
-  margin-top: 10rem;
-  padding: 3rem 3rem 6.1rem 3rem;
-  background: ${({ theme }) => theme.colors.background};
 `;
+
+const ContentWrapper = styled.div`
+  position: relative;
+  z-index: 5;
+  padding-top: 3rem;
+
+`;
+
+const SubHeadline = styled.p`
+  text-align: left;
+    padding-left: 60%;
+    margin: 3rem 0 3rem 0;
+    color: aliceblue;
+`
 
 const BackgroundGrid = styled.div`
   position: absolute;
   top: 0;
-  left: -3rem;
-  width: calc(100% + 3rem);
+  left: 0;
   height: 100%;
-  background-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.2) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 1px, transparent 1px);
-  background-size: 6rem 6rem;
+  width:calc(100% + 6rem);
+  background: #131313;
+  background-image: url(${Bg});
+  background-blend-mode: saturation;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #131313;
+    background-image: url(${Bg});
+    background-blend-mode: color-burn;
+    pointer-events: none;
+  }
 `;
 
 const Heading = styled.h1`
-  position: relative;
-  z-index: 5;
-  font-size: 3rem;
+  font-size: 7vw;
   line-height: 1;
-  color: #080807;
+  color: ${({ theme }) => theme.colors.background};
   white-space: nowrap;
   font-family: ${({ theme }) => theme.fonts.cabinetGrotesk};
+  padding: 0 0 0 6rem;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  div{
+    display: inline-block;
+  }
 `;
 
 const SelectedWorks = () => {
-  const projects = [
-    {
-      name: "Little Lemon",
-      image: littleLemonImg,
-      details:
-        " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipitiure, quidem, magni voluptates esse blanditiis tempora officiisillum unde earum expedita laborum id, veritatis hic excepturivoluptatum fugiat voluptas vitae.",
+  const projectContainer = useRef();
+  useGSAP(
+    () => {
+
+      gsap.from(".heading div", {
+        scrollTrigger: {
+          trigger: ".heading",
+          start: "top bottom",
+          end: "bottom top",
+          toggleActions: "play none none none",
+          // markers: true,
+        },
+        y: 150,
+        stagger: 0.05,
+        duration: 0.7,
+        ease: "sine",
+      });
+
+      gsap.to(".backgroundGrid", {
+        scrollTrigger: {
+          trigger: ".backgroundGrid",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+          pin: ".backgroundGrid",
+          toggleActions: "restart pause reverse play",
+          // markers: true,
+        },
+      });
+
+      gsap.to(".secondDigit", {
+        scrollTrigger: {
+          trigger: ".projectNumber",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+          pin: ".projectNumber",
+          toggleActions: "play none none none",
+          markers: true,
+        },
+        y: 150,
+        stagger: 0.05,
+        duration: 0.7,
+        ease: "sine",
+      });
     },
-    {
-      name: "Little Lemon",
-      image: littleLemonImg,
-      details:
-        " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipitiure, quidem, magni voluptates esse blanditiis tempora officiisillum unde earum expedita laborum id, veritatis hic excepturivoluptatum fugiat voluptas vitae.",
-    },
-  ];
+    { scope: projectContainer } // Applying scope to ensure proper cleanup
+  );
+
 
   return (
-    <StyledSection>
-      <BackgroundGrid></BackgroundGrid>
-      <Heading>SELECTED WORKS.</Heading>
-      {projects.map((project, index) => (
-        <Projects key={index} {...project} />
-      ))}
+    <StyledSection id="projects" ref={projectContainer}>
+      <BackgroundGrid className="backgroundGrid" />
+      <ContentWrapper>
+        <Heading className="heading">
+          <div>S</div>
+          <div>E</div>
+          <div>L</div>
+          <div>E</div>
+          <div>C</div>
+          <div>T</div>
+          <div>E</div>
+          <div>D</div>
+          <div> </div>
+          <div>W</div>
+          <div>O</div>
+          <div>R</div>
+          <div>K</div>
+          <div>S</div>
+          <div>.</div>
+        </Heading>
+        <SubHeadline>Featured projects that have been <br /> meticulously crafted with passion <br /> to drive results.</SubHeadline>
+        <Projects />
+      </ContentWrapper>
     </StyledSection>
   );
 };

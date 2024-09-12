@@ -14,10 +14,36 @@ const StyledNavbar = styled.nav`
   gap: 1rem;
 `;
 
-const StyledLink = styled.li`
-  color: ${({ theme }) => theme.colors.secondary};
+const StyledLink = styled.a`
+color: ${({ theme }) => theme.colors.secondary};
   font-size: 0.9rem;
   font-weight: 700;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #c07300;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 2px;
+    right: 0;
+    background: #c0730092;
+    transition: width 0.3s ease;
+    -webkit-transition: width 0.3s ease;
+  }
+
+  &:hover:after {
+    width: 100%;
+    left: 0;
+    background: #c0730097;
+  }
 `;
 
 const Navbar = () => {
@@ -29,7 +55,7 @@ const Navbar = () => {
         opacity: 0,
         y: -30,
         duration: 1,
-        stagger: 0.2,
+        stagger: 0.1,
         ease: "sine",
         delay: 1,
       });
@@ -37,13 +63,20 @@ const Navbar = () => {
     { scope: navContainer }
   );
 
-  const navElements = ["About Me", "Services", "Projects", "Resume", "Contact"];
+  const navElements = [
+    { name: "About Me", path: "#aboutMe", type: "hashLink" },
+    { name: "Services", path: "#services", type: "hashLink" },
+    { name: "Projects", path: "#projects", type: "hashLink" },
+    { name: "Contact", path: "#contact", type: "hashLink" },
+    { name: "Resume", path: "#resume", type: "hashLink" },
+  ];
+
 
   return (
     <StyledNavbar ref={navContainer}>
-      {navElements.map((nav, index) => (
-        <StyledLink key={index} className="navbar">
-          {nav}
+      {navElements.map((link, index) => (
+        <StyledLink key={index} className="navbar" href={link.path}>
+          {link.name}
         </StyledLink>
       ))}
     </StyledNavbar>

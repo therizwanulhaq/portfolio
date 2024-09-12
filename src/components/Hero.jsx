@@ -3,6 +3,10 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
@@ -72,10 +76,10 @@ const Title = styled.h1`
   z-index: 4;
   margin-left: 12rem;
   margin-right: auto;
-  font-size: 9rem;
+  font-size: 9vw;
   font-weight: bold;
-  letter-spacing: -0.8rem;
-  line-height: 9rem;
+  letter-spacing: -0.7rem;
+  line-height: 9vw;
   padding-right: 1rem;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 
@@ -85,19 +89,22 @@ const Title = styled.h1`
 
   ${mq[3]} {
     font-size: 8rem;
+    line-height: 8rem;
   }
 
   ${mq[2]} {
     font-size: 7rem;
+    line-height: 7rem;
   }
 
   ${mq[1]} {
     font-size: 6rem;
+    line-height: 6rem;
   }
 
   ${mq[0]} {
     font-size: 3rem;
-    line-height: 1;
+    line-height: 3rem;
     letter-spacing: -3px;
     margin-left: 0;
     margin-right: auto;
@@ -146,112 +153,104 @@ const Hero = () => {
     () => {
       const tl = gsap.timeline({ defaults: { duration: 1 } });
 
-      if (window.innerWidth < 768) {
-        gsap.to([".title, .title2, .subheading"], {
-          // opacity: 0,
-          color: "transparent",
-          scrollTrigger: {
-            trigger: ".title",
-            start: "center 30%",
-            end: "bottom top",
-            scrub: 1,
-            markers: true,
-            pin: ".backgroundCircle, .title, title2",
-            toggleActions: "restart pause reverse play",
-          },
-        });
-      } else {
-        gsap.from(".title div", {
-          y: 150,
-          stagger: 0.07,
-          duration: 0.8,
-          ease: "sine",
-        });
+      gsap.from(".title div", {
+        y: 150,
+        stagger: 0.07,
+        duration: 0.8,
+        ease: "sine",
+      });
 
-        gsap.from(".title2 div", {
-          y: 150,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "sine",
-        });
+      gsap.from(".title2 div", {
+        y: 150,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "sine",
+      });
 
-        tl.from(".backgroundCircle", {
+      tl.from(".backgroundCircle", {
+        opacity: 0,
+        y: 0,
+        stagger: 0.5,
+        ease: "sine",
+        delay: 1,
+      });
+
+      tl.from(
+        ".subheading",
+        {
           opacity: 0,
-          y: 0,
+          y: 50,
           stagger: 0.5,
           ease: "sine",
-          delay: 1,
-        });
+        },
+        "<"
+      );
 
-        tl.from(
-          ".subheading",
-          {
-            opacity: 0,
-            y: 50,
-            stagger: 0.5,
-            ease: "sine",
-          },
-          "<"
-        );
+      gsap.to([".monkey"], {
+        // opacity: 0,
+        // color: "transparent",
+        opacity: 0.5,
+        scale: 0.95,
+        y: 50,
+        ease: "sine",
+        pin: ".monkey",
 
-        gsap.to([".title, .title2, .subheading"], {
-          // opacity: 0,
-          color: "transparent",
-          scrollTrigger: {
-            trigger: ".title",
-            start: "center 30%",
-            end: "bottom top",
-            scrub: 1,
-            markers: true,
-            pin: ".backgroundCircle",
-            toggleActions: "restart pause reverse play",
-          },
-        });
-      }
+        scrollTrigger: {
+          trigger: ".title",
+          start: "center 40.3%",
+          end: "bottom top",
+          scrub: 1,
+          // markers: true,
+          toggleActions: "restart pause reverse play",
+        },
+      });
     },
+
     { dependencies: [], scope: container }
   );
 
   return (
-    <StyledSection ref={container}>
-      <Background className="backgroundCircle" />
-      <Spacer></Spacer>
-      <Title className="title">
-        <div>H</div>
-        <div>i</div>
-        <span> </span>
-        <div>t</div>
-        <div>h</div>
-        <div>e</div>
-        <div>r</div>
-        <div>e</div>
-        <div>,</div>
-        <span> </span>
-        <div>I</div>
-        <div>&apos;</div>
-        <div>m</div>
-      </Title>
-      <Title2 className="title2">
-        <div>R</div>
-        <div>i</div>
-        <div>z</div>
-        <div>w</div>
-        <div>a</div>
-        <div>n</div>
-        <span> </span>
-        <div>U</div>
-        <div>l</div>
-        <span> </span>
-        <div>H</div>
-        <div>a</div>
-        <div>q</div>
-      </Title2>
-      <Subheading className="subheading">
-        A freelance front-end developer and web designer elevating digital
-        <br />
-        experiences with code and design prowess.
-      </Subheading>
-    </StyledSection>
+    <div ref={container}>
+      <StyledSection className="panel monkey">
+        <Background className="backgroundCircle" />
+        <Spacer></Spacer>
+        <Title className="title">
+          <div>H</div>
+          <div>i</div>
+          <span> </span>
+          <div>t</div>
+          <div>h</div>
+          <div>e</div>
+          <div>r</div>
+          <div>e</div>
+          <div>,</div>
+          <span> </span>
+          <div>I</div>
+          <div>&apos;</div>
+          <div>m</div>
+        </Title>
+        <Title2 className="title2">
+          <div>R</div>
+          <div>i</div>
+          <div>z</div>
+          <div>w</div>
+          <div>a</div>
+          <div>n</div>
+          <span> </span>
+          <div>U</div>
+          <div>l</div>
+          <span> </span>
+          <div>H</div>
+          <div>a</div>
+          <div>q</div>
+        </Title2>
+        <Subheading className="subheading">
+          A freelance front-end developer and web designer elevating digital
+          <br />
+          experiences with code and design prowess.
+        </Subheading>
+      </StyledSection>
+    </div>
   );
 };
 

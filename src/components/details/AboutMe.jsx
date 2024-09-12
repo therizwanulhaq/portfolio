@@ -23,7 +23,7 @@ const Content = styled.p`
 
 const AboutMe = () => {
   return (
-    <StyledSection>
+    <StyledSection id="aboutMe">
       <Heading>ABOUT ME.</Heading>
       <div>
         <Content>

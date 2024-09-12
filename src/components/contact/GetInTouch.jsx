@@ -104,7 +104,7 @@ const Spacer = styled.div`
 
 const GetInTouch = () => {
   return (
-    <StyledSection>
+    <StyledSection id="contact">
       <Heading>GET IN TOUCH</Heading>
       <SubHeading>Let{"'"}s bring your ideas to life.</SubHeading>
       <Contact>

@@ -5,7 +5,7 @@ import { useState } from "react";
 const StyledSection = styled.section`
   position: relative;
   z-index: 5;
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
   display: flex;
   flex-direction: column;
 `;
@@ -25,14 +25,15 @@ const Heading = styled.h1`
 
 const Container = styled.div``;
 
-const AccordianContainer = styled.div`
+const AccordionContainer = styled.div`
   padding: ${({ isExpanded }) => (isExpanded ? "1.5rem" : "0")};
   color: ${({ isExpanded }) => (isExpanded ? "#393632" : "#bfbfb1")};
   background: ${({ isExpanded }) => (isExpanded ? "#d1d1c7" : "")};
   border-radius: 0.5rem;
+  transition: padding 500ms ease-in-out
 `;
 
-const AccordianHeader = styled.div`
+const AccordionHeader = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -40,6 +41,7 @@ const AccordianHeader = styled.div`
   padding: ${({ isExpanded }) => (isExpanded ? "0 0 1rem 0" : "1rem 0")};
   border-bottom: 1px solid #ccc;
 `;
+
 
 const Title = styled.h5`
   font-size: 2rem;
@@ -67,32 +69,32 @@ const Grid = styled.div`
   grid-template-columns: 1fr 5fr;
 `;
 
-const Accordian = ({ title, details, toggleAccordian, isExpanded }) => (
-  <AccordianContainer isExpanded={isExpanded}>
-    <AccordianHeader onClick={toggleAccordian} isExpanded={isExpanded}>
+const Accordion = ({ title, details, toggleAccordion: toggleAccordion, isExpanded }) => (
+  <AccordionContainer isExpanded={isExpanded}>
+    <AccordionHeader onClick={toggleAccordion} isExpanded={isExpanded}>
       <Title isExpanded={isExpanded}>{title}</Title>
       <Icon className="material-symbols-outlined">
         {isExpanded ? "remove" : "add"}
       </Icon>
-    </AccordianHeader>
+    </AccordionHeader>
     {isExpanded && <Details>{details}</Details>}
-  </AccordianContainer>
+  </AccordionContainer>
 );
-Accordian.propTypes = {
+Accordion.propTypes = {
   title: PropTypes.string.isRequired,
   details: PropTypes.string.isRequired,
-  toggleAccordian: PropTypes.func.isRequired,
+  toggleAccordion: PropTypes.func.isRequired,
   isExpanded: PropTypes.bool.isRequired,
 };
 
 const WhatIDo = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleAccordian = (index) => {
+  const toggleAccordion = (index) => {
     setIsExpanded((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  const accordianData = [
+  const accordionData = [
     {
       title: "Web Development",
       details:
@@ -111,7 +113,7 @@ const WhatIDo = () => {
   ];
 
   return (
-    <StyledSection>
+    <StyledSection id="services">
       <Container>
         <Heading>What i do.</Heading>
         <Divider />
@@ -119,13 +121,13 @@ const WhatIDo = () => {
       <Grid>
         <Container />
         <Container>
-          {accordianData.map((data, index) => (
-            <Accordian
+          {accordionData.map((data, index) => (
+            <Accordion
               key={index}
               title={data.title}
               details={data.details}
               isExpanded={isExpanded === index}
-              toggleAccordian={() => toggleAccordian(index)}
+              toggleAccordion={() => toggleAccordion(index)}
             />
           ))}
         </Container>
