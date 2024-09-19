@@ -95,20 +95,17 @@ const SelectedWorks = () => {
         },
       });
 
-      gsap.to(".secondDigit", {
+      gsap.to(".firstDigit", {
         scrollTrigger: {
-          trigger: ".projectNumber",
+          trigger: ".projectContainer",
           start: "top top",
           end: "bottom top",
           scrub: 1,
-          pin: ".projectNumber",
+          pin: ".firstDigit",
+          pinSpacing: false,
           toggleActions: "play none none none",
           markers: true,
         },
-        y: 150,
-        stagger: 0.05,
-        duration: 0.7,
-        ease: "sine",
       });
     },
     { scope: projectContainer } // Applying scope to ensure proper cleanup
