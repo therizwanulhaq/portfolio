@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
 import Hero from "./Hero";
-// import SelectedWorks from "./selected_works/SelectedWorks";
-// import Details from "./details/Details";
 import GetInTouch from "./contact/GetInTouch";
 import SelectedWorks from "./selected_works/SelectedWorks";
 
@@ -21,12 +19,11 @@ const StyledMain = styled.main`
 `;
 
 const Main = () => {
-
   const main = useRef();
 
   useGSAP(
     () => {
-      let panel = gsap.utils.toArray(".panel")
+      let panel = gsap.utils.toArray(".panel");
 
       panel.forEach((panel) => {
         ScrollTrigger.create({
@@ -37,8 +34,8 @@ const Main = () => {
           // markers: true,
           scrub: 1,
           // snap: 1,
-        })
-      })
+        });
+      });
       gsap.from(panel.children, {
         y: 50,
         opacity: 0,
@@ -46,15 +43,14 @@ const Main = () => {
           trigger: panel,
           start: "top center",
           end: "top top",
-          toggleActions: "play none reverse reset"
-        }
-      })
+          toggleActions: "play none reverse reset",
+        },
+      });
     },
     {
       scope: main,
     }
   );
-
 
   return (
     <StyledMain ref={main}>

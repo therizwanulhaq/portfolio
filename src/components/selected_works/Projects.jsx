@@ -1,38 +1,48 @@
 import styled from "@emotion/styled";
-
 import littleLemonImg from "../../assets/images/little_lemon.png";
 import placeholderImage from "../../assets/images/Wallpaper -www.posintech.com.jpg";
+import React from "react";
 
 const Section = styled.section`
-  display: flex;
-  padding: 0 6rem 6rem 6rem;
-`;
-
-const ProjectNumberWrapper = styled.div`
-  position: relative; /* Allows the pinning behavior */
-  height: 20vw; /* Same height as the first digit to maintain the space */
-`;
-
-const ProjectNumber = styled.div`
-  p {
-    font-size: 20vw;
-    line-height: 20vw;
-    color: ${({ theme }) => theme.colors.background};
-    white-space: nowrap;
-    font-family: ${({ theme }) => theme.fonts.cabinetGrotesk};
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-  }
+  padding: 0 6rem 3rem 6rem;
 `;
 
 const ProjectContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2.5fr;
-  align-items: flex-start;
-  justify-content: space-between;
+  grid-template-columns: 1fr 1.6fr;
+  align-items: start;
 `;
 
-const ImageContainer = styled.div`
-  margin-bottom: 5rem;
+const ProjectNumberWrapper = styled.div`
+  display: flex;
+  overflow: hidden;
+`;
+
+const FirstNumber = styled.h1`
+  font-size: 20vw;
+  line-height: 1;
+  color: ${({ theme }) => theme.colors.background};
+  white-space: nowrap;
+  font-family: ${({ theme }) => theme.fonts.cabinetGrotesk};
+`;
+
+const SecondNumberWrapper = styled.div`
+  height: 20vw;
+`;
+
+const SecondNumber = styled.h1`
+  font-size: 20vw;
+  line-height: 1;
+  color: ${({ theme }) => theme.colors.background};
+  white-space: nowrap;
+  font-family: ${({ theme }) => theme.fonts.cabinetGrotesk};
+  position: absolute;
+  transform: translateY(100%);
+  transition: transform 0.5s ease;
+`;
+
+const Project = styled.div`
+  margin-bottom: 10rem;
 
   p {
     margin-top: 1rem;
@@ -72,7 +82,7 @@ const ProjectDetails = styled.div`
   color: aliceblue;
 `;
 
-const Projects = () => {
+const Projects = ({ projectNumberRefs }) => {
   const projects = [
     {
       name: "Little Lemon",
@@ -86,22 +96,40 @@ const Projects = () => {
       image: littleLemonImg,
       date: "2024",
     },
+    {
+      name: "Little Lemon",
+      type: "Technology and Arts",
+      image: placeholderImage,
+      date: "2024",
+    },
   ];
 
   return (
     <Section>
-      <ProjectNumberWrapper>
-        <ProjectNumber className="firstDigit">
-          <p>0</p>
-        </ProjectNumber>
-      </ProjectNumberWrapper>
       <ProjectContainer className="projectContainer">
+        {/* Project Numbers */}
+        <ProjectNumberWrapper className="projectNumber">
+          <FirstNumber>0</FirstNumber>
+          <SecondNumberWrapper>
+            {projects.map((_, index) => (
+              <SecondNumber
+                key={index}
+                ref={(el) => (projectNumberRefs.current[index] = el)}
+                style={{
+                  transform:
+                    index === 0 ? "translateY(0%)" : "translateY(100%)",
+                }} // Initially show the first number, hide others
+              >
+                {index + 1 < 10 ? `${index + 1}` : index + 1}
+              </SecondNumber>
+            ))}
+          </SecondNumberWrapper>
+        </ProjectNumberWrapper>
+
+        {/* Project List */}
         {projects.map((project, index) => (
-          <>
-            <ProjectNumber>
-              <p>{index + 1}</p>
-            </ProjectNumber>
-            <ImageContainer key={index} className="projectContainer">
+          <React.Fragment key={index}>
+            <Project key={index} className="project">
               <Image src={project.image} alt="placeholder picture" />
               <p>{project.type}</p>
               <ProjectData>
@@ -112,8 +140,9 @@ const Projects = () => {
                   <ProjectDetails>{project.date}</ProjectDetails>
                 </div>
               </ProjectData>
-            </ImageContainer>
-          </>
+            </Project>
+            <div></div>
+          </React.Fragment>
         ))}
       </ProjectContainer>
     </Section>
