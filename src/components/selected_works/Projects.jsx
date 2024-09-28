@@ -16,14 +16,14 @@ const ProjectContainer = styled.div`
 const ProjectNumberWrapper = styled.div`
   display: flex;
   overflow: hidden;
-`;
-
-const FirstNumber = styled.h1`
-  font-size: 20vw;
-  line-height: 1;
-  color: ${({ theme }) => theme.colors.background};
-  white-space: nowrap;
-  font-family: ${({ theme }) => theme.fonts.cabinetGrotesk};
+  h1 {
+    font-size: 20vw;
+    font-weight: 500;
+    line-height: 1;
+    color: ${({ theme }) => theme.colors.background};
+    white-space: nowrap;
+    font-family: ${({ theme }) => theme.fonts.cabinetGrotesk};
+  }
 `;
 
 const SecondNumberWrapper = styled.div`
@@ -31,11 +31,6 @@ const SecondNumberWrapper = styled.div`
 `;
 
 const SecondNumber = styled.h1`
-  font-size: 20vw;
-  line-height: 1;
-  color: ${({ theme }) => theme.colors.background};
-  white-space: nowrap;
-  font-family: ${({ theme }) => theme.fonts.cabinetGrotesk};
   position: absolute;
   transform: translateY(100%);
   transition: transform 0.5s ease;
@@ -109,7 +104,7 @@ const Projects = ({ projectNumberRefs }) => {
       <ProjectContainer className="projectContainer">
         {/* Project Numbers */}
         <ProjectNumberWrapper className="projectNumber">
-          <FirstNumber>0</FirstNumber>
+          <h1>0</h1>
           <SecondNumberWrapper>
             {projects.map((_, index) => (
               <SecondNumber
